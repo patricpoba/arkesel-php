@@ -8,7 +8,7 @@ class Sms
      * The package version. 
      * @var string
      */
-    const VERSION = '0.1.0';
+    const VERSION = '1.0';
 
 	const SMS_ENDPOINT = 'https://sms.arkesel.com/sms/api';
 
@@ -22,18 +22,32 @@ class Sms
 
 	public $dateTime; 
 
-
-	/**
+ 
+    /**
 	 * Although config variable $smsApiKey can be set in the env,
 	 * it can also be set via the constructor to enable swapping
 	 * of api keys during runtime
-	 * @param [type] $smsApiKey [description]
-	 */
+     *
+     * @param string $senderId
+     * @param string $smsApiKey
+     */
 	public function __construct($senderId = null, $smsApiKey = null)
-	{ 
-		$this->from($senderId);
+	{  
+        /**
+         * If current app is a laravel app, fall back to system 
+         * config for senderId and smsApiKey if no params are 
+         * provided via constructor
+         */
+        if (function_exists('config')) {
 
-		$this->setApiKey($smsApiKey); 
+            $senderId  = $senderId  ??  config('arkesel.sms.sender-id');
+
+            $smsApiKey = $smsApiKey ??  config('arkesel.sms.api-key') ;
+        }
+ 
+        $this->from($senderId) ;
+
+        $this->setApiKey($smsApiKey) ; 
 	}
  
 	/**
@@ -72,7 +86,7 @@ class Sms
  	 * @param  int 	    $to        	recepient phone number
  	 * @param  string   $message    messge to be sent
  	 * @param  string   $key       	api key
- 	 * @param  string   $dateTime 	schedule
+ 	 * @param  string   $dateTime 	schedule date in mysql format
  	 * @return boolean|array        [description]
  	 */
 	public function send($to = null, $message = null, $dateTime = null )
@@ -89,7 +103,7 @@ class Sms
 		            . "&sms=". urlencode($this->message) 
 		            . "&from=" . $this->getSenderId() ;
 		            
-		if( !is_null($dateTime) ) $url .= '&schedule='. $dateTime ;
+		if( !is_null($dateTime) ) $url .= '&schedule='. urlencode($dateTime) ;
 		            
 		return $responeCode = file_get_contents($url) ;
 		
@@ -103,6 +117,11 @@ class Sms
 	}	 
 
 
+    /**
+     * Send sms at a later date and time.
+     * @docs: inherit ->send(...) 
+     * @return void
+     */
 	public function schedule($dateTime, $to = null, $message = null )
 	{
 		return $this->send($to, $message, $dateTime);
@@ -157,7 +176,7 @@ class Sms
 				return 'Empty message';
 				break; 
 			default:
-				return 'unknown error code';
+				return 'unknown error code - ' . $errorCode;
 		}
     }
 

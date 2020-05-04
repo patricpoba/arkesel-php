@@ -12,7 +12,7 @@ This package enables sending of sms from your laravel application using https://
 This package requires at least php 7.0 or laravel 5.5. You can install the package via composer:
 
 ```bash
-composer require patricpoba/arkesel-sms-php
+composer require patricpoba/arkesel-php
 ```
 
 ## Usage
