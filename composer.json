@@ -1,11 +1,11 @@
 {
-    "name": "patricpoba/arkesel-sms-php",
+    "name": "patricpoba/arkesel-php",
     "description": "This package enables sending of sms from your laravel application using https://sms.arkesel.com as a service provider.",
     "keywords": [
         "patricpoba",
         "arkesel-sms"
     ],
-    "homepage": "https://github.com/patricpoba/arkesel-sms-php",
+    "homepage": "https://github.com/patricpoba/arkesel-php",
     "license": "MIT",
     "type": "library",
     "authors": [
