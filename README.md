@@ -24,23 +24,29 @@ use PatricPoba\Arkesel\Sms;
 
 $sms = new Sms('SenderId', 'smsApiKey');
   
-// Basic sending(uses api_key set in .env file)
+
+## Basic sending(uses api_key set in .env file)
+// successful response: {"code":"ok","message":"Successfully Send","balance":17706,"user":"Yaw Berko"}
+// error response: {"code":"102","message":"Authentication Failed"} 
 $sms->send('02XXXXXXXXX', 'Testing sms messaging');
 
-// To use a different api key at runtime,
+## To use a different api key at runtime,
 $sms->setApiKey('API_KEY_GOES_HERE')->send('02XXXXXXXX', 'Testing App');
 
-// To customise sender Id (must not be more than 11 characters)
+## To customise sender Id (must not be more than 11 characters)
 $sms->from('CompanyName')->send('02XXXXXXXX', 'Testing App');
 
 ## Sceduling (sending message at a later time)
+// successful response: {"code":"109","message":"Invalid Schedule Time"} 
+// successful response: {"code":"ok","message":"SMS Scheduled successfully.","balance":17705,"user":"Yaw Berko"}
 $dateTime ='04-05-2020 06:19 PM'; // Must be this format - "d-m-Y h:i A" 
 $sms->schedule($dateTime, '02XXXXXXXX', 'This message will be sent later')
  
-## Checking Sms balance   
+## Checking Sms balance    
+// successful response: {"balance":17707,"user":"Yaw Berko","country":"Ghana"}
 $sms->balance();
 
-// Check balance of a different a arkesel account account,
+## Check balance of a different a arkesel account account,
 $sms->setApiKey('API_KEY_GOES_HERE')->balance();
 ```
 
@@ -75,27 +81,36 @@ ARKESEL_SMS_API_KEY=YourKeyGoesHere
 
 ## Sending Sms 
  
-// Basic sending(uses api_key set in .env file)
+## Basic sending(uses api_key set in .env file)
+ * successful response: {"code":"ok","message":"Successfully Send","balance":17706,"user":"Yaw Berko"}
+ * error response: {"code":"102","message":"Authentication Failed"} 
+ * */
+ 
 ArkeselSms::send('02XXXXXXXXX', 'Testing sms messaging');
 
-// To use a different api key at runtime,
+## To use a different api key at runtime,
 ArkeselSms::setApiKey('API_KEY_GOES_HERE')->send('02XXXXXXXX', 'Testing App');
 
-// To customise sender Id (must not be more than 11 characters)
+
+## To customise sender Id (must not be more than 11 characters)
 ArkeselSms::from('CompanyName')->send('02XXXXXXXX', 'Testing App');
 
 
 ## Sceduling (sending message at a later time) 
+// successful response: {"code":"109","message":"Invalid Schedule Time"} 
+// successful response: {"code":"ok","message":"SMS Scheduled successfully.","balance":17705,"user":"Yaw Berko"}
 
 $dateTime ='04-05-2020 06:19 PM'; // Must be this format - "d-m-Y h:i A" 
 ArkeselSms::schedule($dateTime, '02XXXXXXXX', 'This message will be sent later')
 
  
 ## Checking Sms balance   
+// successful response: {"balance":17707,"user":"Yaw Berko","country":"Ghana"}
 
 ArkeselSms::balance();
 
-// Check balance of a different a arkesel account account,
+
+## Check balance of a different a arkesel account account,
 ArkeselSms::setApiKey('API_KEY_GOES_HERE')->balance();
 
 ```
