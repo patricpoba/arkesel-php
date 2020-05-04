@@ -86,8 +86,8 @@ class Sms
  	 * @param  int 	    $to        	recepient phone number
  	 * @param  string   $message    messge to be sent
  	 * @param  string   $key       	api key
- 	 * @param  string   $dateTime 	schedule date in mysql format
- 	 * @return boolean|array        [description]
+ 	 * @param  string   $dateTime 	schedule date in "d-m-Y h:i A" format
+ 	 * @return string   [json]
  	 */
 	public function send($to = null, $message = null, $dateTime = null )
 	{  
@@ -104,22 +104,25 @@ class Sms
 		            . "&from=" . $this->getSenderId() ;
 		            
 		if( !is_null($dateTime) ) $url .= '&schedule='. urlencode($dateTime) ;
-		            
-		return $responeCode = file_get_contents($url) ;
-		
-		return $responeCode == '1000' 
-								? true 
-                                : [ 
-                                    'error' => 'true',
-                                    'error_code' => $responeCode, 
-                                    'error_message' => $this->errorMessage($responeCode) 
-                                ]; 
+                    
+        /**
+         * successful response
+         * {"code":"ok","message":"Successfully Send","balance":17707,"user":"Qodehub Limited"}
+         * 
+         * error: 
+         * {"code":"102","message":"Authentication Failed"}
+         */
+		return $responeCode = file_get_contents($url) ; 
 	}	 
 
 
     /**
      * Send sms at a later date and time.
      * @docs: inherit ->send(...) 
+     * 
+     * @return sample
+     * {"code":"109","message":"Invalid Schedule Time"}
+     * {"code":"ok","message":"SMS Scheduled successfully.","balance":17705,"user":"Qodehub Limited"}
      * @return void
      */
 	public function schedule($dateTime, $to = null, $message = null )
@@ -139,45 +142,6 @@ class Sms
 
 		return file_get_contents($url);
 	}
-
-	/**
-	 * Inteprete error code
-	 * @param  int $errorCode [error code returned by api]
-	 * @return string  'error message'
-	 */
-	public function errorMessage($errorCode)
-	{
-		switch($errorCode){                                           
-			case '1000':
-				return 'Message sent';
-				break;
-
-			case '1002':
-				return 'Message not sent';
-				break;
-
-			case '1003':
-				return 'You do not have enough balance';
-				break;
-
-			case '1004':
-				return 'Invalid API Key';
-				break;
-
-			case '1005':
-				return 'Phone number not valid';
-				break;
-
-			case '1006':
-				return 'Invalid Sender ID';
-				break;
-
-			case '1008':
-				return 'Empty message';
-				break; 
-			default:
-				return 'unknown error code - ' . $errorCode;
-		}
-    }
+ 
 
 }

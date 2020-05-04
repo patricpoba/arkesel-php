@@ -15,25 +15,91 @@ This package requires at least php 7.0 or laravel 5.5. You can install the packa
 composer require patricpoba/arkesel-php
 ```
 
-## Usage
+## PHP Usage
 
 ``` php
-// Usage description here
+// PHP Examples
+
+use PatricPoba\Arkesel\Sms;
+
+$sms = new Sms('SenderId', 'smsApiKey');
+  
+// Basic sending(uses api_key set in .env file)
+$sms->send('02XXXXXXXXX', 'Testing sms messaging');
+
+// To use a different api key at runtime,
+$sms->setApiKey('API_KEY_GOES_HERE')->send('02XXXXXXXX', 'Testing App');
+
+// To customise sender Id (must not be more than 11 characters)
+$sms->from('CompanyName')->send('02XXXXXXXX', 'Testing App');
+
+## Sceduling (sending message at a later time)
+$dateTime ='04-05-2020 06:19 PM'; // Must be this format - "d-m-Y h:i A" 
+$sms->schedule($dateTime, '02XXXXXXXX', 'This message will be sent later')
+ 
+## Checking Sms balance   
+$sms->balance();
+
+// Check balance of a different a arkesel account account,
+$sms->setApiKey('API_KEY_GOES_HERE')->balance();
 ```
 
-### Testing
 
-``` bash
-composer test
+## Laravel
+
+If you're using laravel 5.5 and above, you can skip this step and continue at the examples.
+Add the following line of code to the **providers**' array in *config/app.php file*.
+```php  
+PatricPoba\Arkesel\ArkeselServiceProvider::class
 ```
 
-### Changelog
+Add the facade of this package to the aliases array in the *config/app.php file*.
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+```php 
+ 'ArkeselSms' => PatricPoba\Arkesel\ArkeselSmsFacade::class
+```
 
-## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+### Usage Examples 
+
+``` php  
+# Setting API key in .env file
+Before you can start sending sms you will need to set your api key and default sender ID in your /.env file
+You can find your api key here `https://sms.arkesel.com/user/sms-api/info` 
+These config files can be changed  from the laravel application.  
+
+<!-- /.env file --> 
+ARKESEL_SMS_SENDER_ID=MyApp
+ARKESEL_SMS_API_KEY=YourKeyGoesHere
+
+
+## Sending Sms 
+ 
+// Basic sending(uses api_key set in .env file)
+ArkeselSms::send('02XXXXXXXXX', 'Testing sms messaging');
+
+// To use a different api key at runtime,
+ArkeselSms::setApiKey('API_KEY_GOES_HERE')->send('02XXXXXXXX', 'Testing App');
+
+// To customise sender Id (must not be more than 11 characters)
+ArkeselSms::from('CompanyName')->send('02XXXXXXXX', 'Testing App');
+
+
+## Sceduling (sending message at a later time) 
+
+$dateTime ='04-05-2020 06:19 PM'; // Must be this format - "d-m-Y h:i A" 
+ArkeselSms::schedule($dateTime, '02XXXXXXXX', 'This message will be sent later')
+
+ 
+## Checking Sms balance   
+
+ArkeselSms::balance();
+
+// Check balance of a different a arkesel account account,
+ArkeselSms::setApiKey('API_KEY_GOES_HERE')->balance();
+
+```
+
 
 ### Security
 
