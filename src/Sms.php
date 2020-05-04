@@ -1,8 +1,8 @@
 <?php
 
-namespace Patricpoba\ArkeselSms;
+namespace PatricPoba\Arkesel;
 
-class ArkeselSms
+class Sms
 {
     // Build your next great package.
 }

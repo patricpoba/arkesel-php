@@ -5,7 +5,7 @@
         "patricpoba",
         "arkesel-sms"
     ],
-    "homepage": "https://github.com/patricpoba/arkesel-sms",
+    "homepage": "https://github.com/patricpoba/arkesel-sms-php",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Patricpoba\\ArkeselSms\\": "src"
+            "PatricPoba\\Arkesel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Patricpoba\\ArkeselSms\\Tests\\": "tests"
+            "PatricPoba\\Arkesel\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Patricpoba\\ArkeselSms\\ArkeselSmsServiceProvider"
+                "PatricPoba\\Arkesel\\ArkeselServiceProvider"
             ],
             "aliases": {
-                "ArkeselSms": "Patricpoba\\ArkeselSms\\ArkeselSmsFacade"
+                "ArkeselSms": "PatricPoba\\Arkesel\\ArkeselSmsFacade"
             }
         }
     }

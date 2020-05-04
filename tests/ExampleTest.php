@@ -1,16 +1,16 @@
 <?php
 
-namespace Patricpoba\ArkeselSms\Tests;
+namespace PatricPoba\Arkesel\Tests;
 
 use Orchestra\Testbench\TestCase;
-use Patricpoba\ArkeselSms\ArkeselSmsServiceProvider;
+use PatricPoba\Arkesel\ArkeselServiceProvider;
 
 class ExampleTest extends TestCase
 {
 
     protected function getPackageProviders($app)
     {
-        return [ArkeselSmsServiceProvider::class];
+        return [ArkeselServiceProvider::class];
     }
     
     /** @test */

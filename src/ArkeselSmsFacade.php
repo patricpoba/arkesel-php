@@ -1,11 +1,11 @@
 <?php
 
-namespace Patricpoba\ArkeselSms;
+namespace PatricPoba\Arkesel;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Patricpoba\ArkeselSms\Skeleton\SkeletonClass
+ * @see \PatricPoba\Arkesel\Skeleton\SkeletonClass
  */
 class ArkeselSmsFacade extends Facade
 {

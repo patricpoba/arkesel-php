@@ -1,10 +1,10 @@
 <?php
 
-namespace Patricpoba\ArkeselSms;
+namespace PatricPoba\Arkesel;
 
 use Illuminate\Support\ServiceProvider;
 
-class ArkeselSmsServiceProvider extends ServiceProvider
+class ArkeselServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -54,7 +54,7 @@ class ArkeselSmsServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('arkesel-sms', function () {
-            return new ArkeselSms;
+            return new Arkesel;
         });
     }
 }
