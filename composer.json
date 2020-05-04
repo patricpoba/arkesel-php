@@ -1,0 +1,54 @@
+{
+    "name": "patricpoba/arkesel-sms-php",
+    "description": "This package enables sending of sms from your laravel application using https://sms.arkesel.com as a service provider.",
+    "keywords": [
+        "patricpoba",
+        "arkesel-sms"
+    ],
+    "homepage": "https://github.com/patricpoba/arkesel-sms",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Patric Poba",
+            "email": "poba.dev@outlook.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "illuminate/support": "^5.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Patricpoba\\ArkeselSms\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Patricpoba\\ArkeselSms\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Patricpoba\\ArkeselSms\\ArkeselSmsServiceProvider"
+            ],
+            "aliases": {
+                "ArkeselSms": "Patricpoba\\ArkeselSms\\ArkeselSmsFacade"
+            }
+        }
+    }
+}
