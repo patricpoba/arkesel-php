@@ -15,8 +15,10 @@ class SmsTest extends TestCase
 						];
 	
 
-	function setup() : void
+	protected function setup() : void
 	{   
+		parent::setup();
+
 		$this->sms = new Sms($this->testValues['senderId'], $this->testValues['apiKey']);
     }
     
