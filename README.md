@@ -118,7 +118,7 @@ ArkeselSms::setApiKey('API_KEY_GOES_HERE')->balance();
 
 ### Security
 
-If you discover any security related issues, please email poba.dev@outlook.com instead of using the issue tracker.
+If you discover any security related issues, please me a message on [twitter](https://twitter.com/patricpoba) instead of using the issue tracker.
 
 
 ## License
